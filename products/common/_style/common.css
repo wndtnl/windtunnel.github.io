@@ -1,0 +1,28 @@
+/*
+ * Fonts
+ */
+@font-face {
+    font-family: futura-medium;
+    src: url(../_media/fonts/futura-medium.ttf);
+}
+
+@font-face {
+    font-family: futura-light;
+    src: url(../_media/fonts/futura-light.ttf);
+}
+
+@font-face {
+    font-family: futura-bold;
+    src: url(../_media/fonts/futura-bold.ttf);
+}
+
+.logo {
+    max-width: 36px;
+}
+
+:root {
+    --base-font-family: futura-light;
+    --base-font-size: 17px;
+    --base-line-height: 1.5;
+    --theme-color: #0091FF;
+}

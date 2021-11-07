@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="131px" height="52px" viewBox="0 0 131 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Logo" transform="translate(-114.000000, -268.000000)">
+            <g id="Group-2" transform="translate(114.104201, 266.008398)">
+                <text id="WindTunnel" font-family="Futura-Bold, Futura" font-size="22" font-weight="bold" letter-spacing="-0.733333333" fill="#333333">
+                    <tspan x="0" y="45.1076952">WindTunnel</tspan>
+                </text>
+                <text id="TECHNOLOGIES" font-family="Futura-Medium, Futura" font-size="6" font-weight="400" fill="#4C4C4C">
+                    <tspan x="84" y="53.1076952">TECHNOLOGIES</tspan>
+                </text>
+                <g id="Group" transform="translate(43.392305, 18.000000) rotate(-6.000000) translate(-43.392305, -18.000000) translate(23.392305, 3.000000)" fill="#0091FF" stroke="#0091FF" stroke-linecap="square" stroke-linejoin="round">
+                    <polygon id="Line-5" points="25.2484743 27.8923048 39.2484743 3.89230485 25.2484743 7.39230485"></polygon>
+                    <polygon id="Line-5" transform="translate(23.000000, 14.000000) rotate(-30.000000) translate(-23.000000, -14.000000) " points="16 26 30 2 16 5.5"></polygon>
+                    <polygon id="Line-5" transform="translate(14.000000, 17.000000) rotate(-60.000000) translate(-14.000000, -17.000000) " points="7 29 21 5 7 8.5"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

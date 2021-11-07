@@ -1,0 +1,50 @@
+/*
+ * Classes
+ */
+h1 {
+    font-family: futura-light;
+}
+
+.legal {
+    margin: auto;
+    max-width: 850px;
+    padding: 0 15px;
+}
+
+.legal__logo {
+    max-width: 200px;
+    padding: 30px 0;
+}
+
+.legal__wrapper {
+    margin-bottom: 250px;
+}
+
+.legal__header--h1 {
+    font-size: 2.3em;
+}
+
+.legal__header--h2 {
+    font-size: 1.77em;
+}
+
+.legal__header--h3 {
+    font-size: 1.33em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.legal__header--h4 {
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+td {
+    padding: 10px 20px 10px 0;
+    vertical-align: top;
+}
