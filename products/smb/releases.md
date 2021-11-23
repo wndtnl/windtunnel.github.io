@@ -2,6 +2,16 @@
 
 > This information can also be found at the Atlassian Marketplace [version page](https://marketplace.atlassian.com/apps/1221965/secret-managers-for-bamboo/version-history).
 
+## Version 1.7.39
+
+*Released* 23/11/2021
+
+*Summary* Log masking of multiline secrets
+
+*Notes*
+
+- Log masking has been improved to cover most use cases involving multiline secrets (i.e. secrets printed over multiple lines in the Bamboo build log), such as certificates.
+
 ## Version 1.7.38
 
 *Released* 26/11/2020
