@@ -2,6 +2,17 @@
 
 > This information can also be found at the Atlassian Marketplace [version page](https://marketplace.atlassian.com/apps/1221965/secret-managers-for-bamboo/version-history).
 
+## Version 1.7.40
+
+*Released* 06/12/2021
+
+*Summary* Thycotic secret search bugfix
+
+*Notes*
+
+- A bug has been resolved resulting in an "undetermined result, multiple secrets found" error message at secret resolution time for Thycotic Secret Server.
+The bug manifested itself when the name of a secret was used in a field of a different secret.
+
 ## Version 1.7.39
 
 *Released* 23/11/2021
