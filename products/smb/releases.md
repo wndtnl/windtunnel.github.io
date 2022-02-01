@@ -2,6 +2,16 @@
 
 > This information can also be found at the Atlassian Marketplace [version page](https://marketplace.atlassian.com/apps/1221965/secret-managers-for-bamboo/version-history).
 
+## Version 1.7.42
+
+*Released* 31/01/2022
+
+*Summary* Bugfix: HashiCorp Vault transient network error handling
+
+*Notes*
+
+- This release improves the handling of transient network errors for HashiCorp Vault by introducing exponential backoff when fetching tokens and secrets.
+
 ## Version 1.7.40
 
 *Released* 06/12/2021
