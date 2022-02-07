@@ -2,6 +2,17 @@
 
 > This information can also be found at the Atlassian Marketplace [version page](https://marketplace.atlassian.com/apps/1221965/secret-managers-for-bamboo/version-history).
 
+## Version 1.7.43
+
+*Released* 07/02/2022
+
+*Summary* HashiCorp Vault: support for namespaces
+
+*Notes*
+
+This release adds the option to specify a [namespace](https://www.vaultproject.io/docs/enterprise/namespaces) when configuring a HashiCorp Vault secret manager.
+Namespaces are a Vault Enterprise feature. Specifying a namespace against a non-enterprise installation will have no effect.
+
 ## Version 1.7.42
 
 *Released* 31/01/2022

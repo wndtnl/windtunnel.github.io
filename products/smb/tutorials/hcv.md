@@ -176,6 +176,7 @@ Complete the fields as indicated:
 
 - *Display name*: this name is Bamboo-specific. It will appear on the *Secret managers* overview page, and is used to refer to the secrets held by this secret manager from Bamboo variable values. It can only contain 0-9, a-z, A-Z, and - (dash) characters.
 - *Vault URL*: the base URL of your *Vault* server installation.
+- *Namespace*: allows scoping requests against a *Vault* [namespace](https://www.vaultproject.io/docs/enterprise/namespaces). Namespaces are an enterprise feature, and will have no effect when used against a non-enterprise installation of *Vault*. The details of namespacing are outside the scope of this tutorial.
 - *Auth Path*: the path at which AppRole Auth Method is mounted, we used the default *approle*.
 - *Engine Type*: the secrets engine type, one of *K/V Version 1* or K/V Version 2.
 - *Engine Path*: the path at which the *Secrets Engine* is mounted, we used *bamboo*.
