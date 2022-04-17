@@ -7,6 +7,21 @@ offered by Bamboo since v6.0.0. The credentials are only decrypted in memory dur
 
 For additional information, please refer to the Bamboo article at https://confluence.atlassian.com/bamboo/system-wide-encryption-873930114.html.
 
+# How to ensure secure agent connections?
+
+When using the Kubernetes (Agents) for Bamboo plugin, we advice using at least [secure token verification](https://confluence.atlassian.com/bamboo/agent-authentication-289277196.html#Agentauthentication-SecuritytokenverificationSecuritytokenverification).
+When this feature is enabled, the plugin will automatically add the *SECURITY_TOKEN* environment variable to the instance agent container spec with the correct secure token value.
+This environment value is picked up by the default agent run script, and used to communicate with the Bamboo server. This feature should work transparently.
+
+If [agent authentication](https://confluence.atlassian.com/bamboo/agent-authentication-289277196.html) is desired (or required), the following needs to be taken into account:
+
+- The plugin will automatically approve all instance agents connecting from a 'localhost' address (*127.0.0.1* for IPv4 and *::1* for IPv6).
+- Instance agents connecting form a non-localhost address will need to be manually approved at least once.
+    - If the agent keeps the same IP-address, even between start/stop cycles of the corresponding instance, nothing else needs to be done.
+    - In the more likely scenario where the pod hosting the agent is assigned different IP-addresses between instance start/stop cycles, the allowed IP-addresses can be whitelisted to avoid manual approval each time.
+    This can be done from the Agents > Remote Agents > Agent Authentication tab in the administration environment.
+    Use the *Edit IP address* button. In highly dynamic or complex network environments, the special value "\*...\*" can be used to allow re-connecting from any IP-address.
+
 # What is the difference with Elastic Bamboo?
 
 The goals behind [Elastic Bamboo](https://confluence.atlassian.com/bamboo/about-elastic-bamboo-289277118.html) and the
@@ -28,5 +43,4 @@ As important points of distinction, PBC:
 
 - Does not offer commercial support.
 - Relies on *kubectl* and *kubeconfig* for cluster interaction.
-- Cannot have remote agent authentication enabled.
 - Breaks some standard Bamboo functionality, as mentioned in [Ceaveats and gotchas](https://bitbucket.org/atlassian/per-build-container/src/9317cea702776f9f6737457e33a9c837f88a36fa/bamboo-isolated-docker-plugin/README.md).
