@@ -17,10 +17,10 @@ As there are many tutorials available regarding the use of helm and the creation
 aspects relevant to this plugin.
 
 We assume the deployment of a website, represented by a default [nginx](https://hub.docker.com/_/nginx) image. We have prepared
-a public repository at https://github.com/wndtnl/k8s-chart-demo which will be used during this tutorial.
+a public repository at https://github.com/wndtnl/ksb-chart-demo which will be used during this tutorial.
 
 ```
-$ git clone https://github.com/wndtnl/k8s-chart-demo.git
+$ git clone https://github.com/wndtnl/ksb-chart-demo.git
 ```
 
 ## Cluster Configuration
@@ -65,7 +65,7 @@ Finally, we create a build plan with 4 tasks as show below. Each task is discuss
 
 ### Source Code Checkout
 
-Regular checkout of the repository containing the chart definition, *https://github.com/wndtnl/k8s-chart-demo.git* in our example.
+Regular checkout of the repository containing the chart definition, *https://github.com/wndtnl/ksb-chart-demo.git* in our example.
 
 ### Download Helm
 
