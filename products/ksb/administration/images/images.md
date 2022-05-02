@@ -3,6 +3,7 @@
 - [Image Types](/administration/images/images.md?id=image-types)
     - [Standalone](/administration/images/images.md?id=standalone)
     - [Docker-in-Docker](/administration/images/images.md?id=docker-in-docker)
+- [Image Requirements](/administration/images/images.md?id=image-requirements)
 - [Administration](/administration/images/images.md?id=administration)
 
 ## Image Types
@@ -36,6 +37,28 @@ Hosting the DinD container requires two additional, non-persisted Volumes, as sh
 When using docker-in-docker, please have a look at the [Using Docker Runner](/tutorials/docker_runner) tutorial
 for additional instructions.
 
+## Image Requirements
+
+The Docker image used for the *bamboo-agent* container must meet certain requirements, in order for the plugin to function correctly:
+
+- The image must contain the agent installation files, and start the agent when the container starts.
+- The Bamboo server root url can be provided as the first container argument.
+- The agent must run as the *bamboo* user, with uid=1000 and gui=1000.
+- The agent home folder must be mountable below the path */home/bamboo/bamboo-agent-home*.
+- When using [secure token verification](https://confluence.atlassian.com/bamboo/agent-authentication-289277196.html#Agentauthentication-SecuritytokenverificationSecuritytokenverification), its value is accepted by the container as the environment variable SECURITY_TOKEN.
+- When using Docker-in-Docker, the Docker client must be installed.
+
+The easiest way to ensure these requirements are met is to use the images provided in our [Dockerhub repository](https://hub.docker.com/r/wndtnl/ksb-bamboo-agent).
+The source files for these images are maintained on [Github](https://github.com/wndtnl/ksb-bamboo-agent), and can be used to derive
+more specialized and internally distributed images from.
+
+In case of doubt, use the following values for the agent image:
+
+- ***Standalone***: wndtnl/ksb-bamboo-agent:nix-\<bamboo-version\>-prewarm
+- ***Docker-in-Docker***: wndtnl/ksb-bamboo-agent:nix-\<bamboo-version\>-prewarm-dind
+
+Where *\<bamboo-version\>* is replaced with the version of your Bamboo server.
+
 ## Administration
 
 Image management is done from the *Kubernetes Agents* > *Images* Bamboo administration page. Add a new image by clicking the *Add new image*
@@ -52,25 +75,7 @@ A descriptive, free-form name which is used to distinguish this image from other
 ***Agent image***
 
 The fully qualified *Agent image* name and tag, which is used by the *bamboo-agent* container as discussed above.
-This image has the same requirements as set by the Atlassian provided
-Bamboo agent base image, available at https://hub.docker.com/r/atlassian/bamboo-agent-base. These requirements are as follows:
-
-- The image contains the agent installation files, and starts the agent when the container starts.
-- The Bamboo server root url can be provided as the first container argument.
-- When the use of a security token is desired, its value is accepted by the container as the environment variable SECURITY_TOKEN.
-
-The easiest way to ensure these requirements are met is to use the base image provided by Atlassian as-is, or to extend its
-capabilities [as described](https://hub.docker.com/r/atlassian/bamboo-agent-base). The [Using Docker Runner](/tutorials/docker_runner?id=custom-agent-image) tutorial also provides some guidance.
-
-> IMPORTANT
->
-> There is a known issue with Atlassian provided agent images version 7.0 and up. When using these images, the agent might fail to load with
-> the following error:
->
-> cp: cannot create regular file '.../bamboo-capabilities.properties': No such file or directory
->
-> The current workaround is to use an agent image with version <7.0. It is perfectly fine to e.g. use an agent image v6.9 with
-> Bamboo v7.X as the agent will synchronize its classpath with the server at startup each time.
+Please have a look at the provided [Dockerhub repository](https://hub.docker.com/r/wndtnl/ksb-bamboo-agent) for pre-built images and additional details.
 
 ***Use Docker-in-Docker***
 

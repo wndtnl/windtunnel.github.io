@@ -1,7 +1,7 @@
 # Using Docker Runner
 
 - [Introduction](/tutorials/docker_runner.md?id=introduction)
-- [Custom Agent Image](/tutorials/docker_runner.md?id=custom-agent-image)
+- [Agent Image](/tutorials/docker_runner.md?id=agent-image)
 - [Create Image](/tutorials/docker_runner.md?id=create-image)
 - [Create Instance](/tutorials/docker_runner.md?id=create-instance)
 - [Agent Capability](/tutorials/docker_runner.md?id=agent-capability)
@@ -25,53 +25,18 @@ handled transparently by the plugin as described on the [images page](/administr
 The different steps needed to arrive at this configuration, and to use Bamboo Docker Runner with this plugin, are detailed below.
 We assume a cluster connection [has been defined](/administration/clusters/clusters?id=administration) beforehand.
 
-## Custom Agent Image
+## Agent Image
 
-The Docker CLI must be available in the agent environment. Because the Atlassian provided
-[agent base images](https://hub.docker.com/r/atlassian/bamboo-agent-base) do not include the Docker CLI, we need to
-create our own by extending one of the base images.
+The Docker CLI must be available in the agent environment, which means installing it in the agent image.
 
-Shown below is an example *Dockerfile* which installs the *docker-ce-cli* package on top of the Atlassian provided
-*atlassian/bamboo-agent-base:6.8.0* image.
-
-```
-FROM atlassian/bamboo-agent-base:6.8.0
-
-USER root
-
-RUN apt-get update && \
-    apt-get -y install apt-transport-https \
-      ca-certificates \
-      curl \
-      gnupg2 \
-      software-properties-common && \
-    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg > /tmp/dkey; apt-key add /tmp/dkey && \
-    add-apt-repository \
-      "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
-      $(lsb_release -cs) \
-      stable" && \
-   apt-get update && \
-   apt-get -y install docker-ce-cli
-
-USER ${BAMBOO_USER}
-```
-
-In order to use this image, we need to build, tag and push it to a Docker registry:
-
-```
-$ docker build -t bamboo-agent-dind:6.8.0 .
-$ docker tag bamboo-agent-dind:6.8.0 wndtnl/bamboo-agent-dind:6.8.0
-$ docker push wndtnl/bamboo-agent-dind:6.8.0
-```
-
-These commands make the image available on the [WindTunnel Dockerhub account](https://hub.docker.com/u/wndtnl).
-You are free to use this pre-built image, or to adjust the commands and distribute the image to your own repository.
+We have provided an example on [Github](https://github.com/wndtnl/ksb-bamboo-agent) (see the Dockerfile suffixed with Dind),
+as well as pre-built images available on [Dockerhub](https://hub.docker.com/r/wndtnl/ksb-bamboo-agent) (see image tags suffixed with *dind*).
 
 ## Create Image
 
 We can now specify a new image on the Kubernetes Agents > Images administration page. We use the following settings:
 
-- Agent image: the image created in the previous step.
+- Agent image: the image discussed in the previous step.
 - Docker image: one of the images available at https://hub.docker.com/_/docker.
 
 These settings are illustrated in the screenshot below.
