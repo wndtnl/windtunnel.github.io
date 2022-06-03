@@ -12,6 +12,8 @@ Depending on the provided Image definition, the corresponding Pod specification 
 
 ### Standalone
 
+> This configuration is available to both Linux and Windows based agent images.
+
 The *Standalone* configuration is the default, and includes a single-container Pod with a persisted Agent home folder.
 The latter takes the form of a PersistentVolumeClaim, attached to the container as a Volume.
 The container image (called the *Agent image*) contains the Bamboo Agent bits and optionally any specific build tools.
@@ -22,6 +24,8 @@ The configuration is schematically illustrated below.
 <kbd>![image-type-standalone](../../_media/images/image_type_standalone.png "Image Type Standalone")</kbd>
 
 ### Docker-in-Docker 
+
+> This configuration is only available to Linux based agent images.
 
 The *Docker-in-Docker* (DinD) configuration extends the *Standalone* configuration with a second container, responsible for
 providing the Docker daemon. The daemon is securely exposed to the primary (build) container over the local network.
@@ -39,14 +43,24 @@ for additional instructions.
 
 ## Image Requirements
 
-The Docker image used for the *bamboo-agent* container must meet certain requirements, in order for the plugin to function correctly:
+The Docker images used for the *bamboo-agent* container must meet certain requirements, specific to the base operating system, in order for the plugin to function correctly.
+
+For both Linux and Windows:
 
 - The image must contain the agent installation files, and start the agent when the container starts.
 - The Bamboo server root url can be provided as the first container argument.
-- The agent must run as the *bamboo* user, with uid=1000 and gui=1000.
-- The agent home folder must be mountable below the path */home/bamboo/bamboo-agent-home*.
 - When using [secure token verification](https://confluence.atlassian.com/bamboo/agent-authentication-289277196.html#Agentauthentication-SecuritytokenverificationSecuritytokenverification), its value is accepted by the container as the environment variable SECURITY_TOKEN.
+
+Specifically for Linux:
+
+- The agent must run as the *bamboo* user, with uid=1000 and gid=1000.
+- The agent home folder must be mountable below the path */home/bamboo/bamboo-agent-home*.
 - When using Docker-in-Docker, the Docker client must be installed.
+
+Specifically for Windows:
+
+- The agent must run as the *bamboo* user, and be part of the *Administrator* group. This avoids permission issues with the mounted agent home volume.
+- The agent home folder must be mountable below the path *c:\Users\bamboo\bamboo-agent-home*.
 
 The easiest way to ensure these requirements are met is to use the images provided in our [Dockerhub repository](https://hub.docker.com/r/wndtnl/ksb-bamboo-agent).
 The source files for these images are maintained on [Github](https://github.com/wndtnl/ksb-bamboo-agent), and can be used to derive
@@ -54,8 +68,10 @@ more specialized and internally distributed images from.
 
 In case of doubt, use the following values for the agent image:
 
-- ***Standalone***: wndtnl/ksb-bamboo-agent:nix-\<bamboo-version\>-prewarm
-- ***Docker-in-Docker***: wndtnl/ksb-bamboo-agent:nix-\<bamboo-version\>-prewarm-dind
+- ***Standalone***: 
+    - Linux: *wndtnl/ksb-bamboo-agent:nix-\<bamboo-version\>-prewarm*
+    - Windows: *wndtnl/ksb-bamboo-agent:win-\<bamboo-version\>-prewarm*
+- ***Docker-in-Docker***: *wndtnl/ksb-bamboo-agent:nix-\<bamboo-version\>-prewarm-dind*
 
 Where *\<bamboo-version\>* is replaced with the version of your Bamboo server.
 
@@ -77,9 +93,17 @@ A descriptive, free-form name which is used to distinguish this image from other
 The fully qualified *Agent image* name and tag, which is used by the *bamboo-agent* container as discussed above.
 Please have a look at the provided [Dockerhub repository](https://hub.docker.com/r/wndtnl/ksb-bamboo-agent) for pre-built images and additional details.
 
+***Operating system***
+
+Specify the operating system flavor on which the agent image is based. This setting will influence the generated *nodeSelector > kubernetes.io/os* entry in the
+instance pod spec to ensure correct node scheduling.
+
+> When selecting *Windows* as operating system, it is not possible to use a Docker-in-Docker configuration nor the Bamboo Docker Runner. This is a (current) limitation
+> of both the Windows operating system and Bamboo.
+
 ***Use Docker-in-Docker***
 
-Allows the specification of a Docker image, and enables a Docker-in-Docker configuration as described above.
+Allows the specification of a Docker image, and enables a Docker-in-Docker configuration as described above. Only available for Linux-based agent images.
 
 ***Docker image***
 
