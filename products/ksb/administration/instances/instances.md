@@ -184,3 +184,11 @@ to *Active*, and the *current state* becoming *Active*. When the instance does n
 assumes something is wrong and deactivates the instance as to prevent holding on to useless (cloud) resources or Bamboo agent licenses.
 
 Note that instances in the *Task* pool have a similar setting on the task configuration.
+
+***Auto start mode***
+
+This setting only applies to instances in the *Automatic* pool. It determines the rate at which the plugin will schedule
+new instances to start based on builds being added to the build queue.
+
+- *Conservative*: if an instance is already deploying or loading which can handle the build, the plugin will refrain from starting a new instance.
+- *Aggressive*: a new instance will always be selected to start if it can handle the build, independent of the state of other instances.
