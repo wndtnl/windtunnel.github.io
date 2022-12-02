@@ -6,6 +6,8 @@
 - [Create Instance](/tutorials/docker_runner.md?id=create-instance)
 - [Agent Capability](/tutorials/docker_runner.md?id=agent-capability)
 - [Configure Build](/tutorials/docker_runner.md?id=configure-build)
+- [Troubleshooting](/tutorials/docker_runner.md?id=troubleshooting)
+    - [Connection Reset By Peer](/tutorials/docker_runner.md?id=connection-reset-by-peer)
 
 ## Introduction
    
@@ -105,3 +107,43 @@ The build tasks can now be configured as any other build. They will execute in t
 
 <kbd>![docker-runner-script](../_media/screenshots/tutorial/tutorial_docker_runner_script.png "Docker Runner Script")</kbd>
 
+## Troubleshooting
+
+### Connection Reset By Peer
+
+When using the [Docker-in-Docker](/administration/images/images.md?id=docker-in-docker) agent image configuration, with or without
+the Bamboo Docker Runner, your builds might fail with the following error message:
+ 
+```
+read tcp [::1]:37862->[::1]:2376: read: connection reset by peer
+```
+
+When this happens, the *docker* container in the agent pod was restarted. As a result, the *bamboo-agent* container could (temporarily)
+not connect with the docker daemon yielding this error message. The most probable cause for a *docker* container restart is
+by hitting the allocated memory resource limit.
+
+Resolving the problem means increasing the memory limit. This can be done by specifying custom resources specifically for the *docker* container, as 
+explained on the [Adjusting Agent Pod Spec](/tutorials/agent_pod_spec?id=use-case-custom-resources) page. The limits for the
+*docker* container can be increased using the snippet:
+
+```
+containers:
+  - name: docker
+    resources:
+      limits:
+        cpu: 750m
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 725Mi
+```
+
+However, it might be hard to predict what limits should be set. In that case it might be easier to just lift all limits using the snippet:
+
+```
+containers:
+  - name: docker
+    resources:
+      limits:
+      requests:
+```
