@@ -21,6 +21,10 @@
     - [Using Docker Runner](/tutorials/docker_runner.md)
     - [Deploy Helm Chart](/tutorials/deploy_helm.md)
 
+- [**Topics**](/topics/)
+
+    - [REST API](/topics/rest-api.md)
+
 - [**FAQ**](faq.md)
 
 - [**Releases**](releases.md)
