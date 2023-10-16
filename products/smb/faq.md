@@ -24,10 +24,3 @@ Yes. When connecting to external secret managers, the plugin will use the same p
 Bamboo installation. No further configuration is needed.
 
 For additional information, please refer to the [following Bamboo documentation page](https://confluence.atlassian.com/jirakb/configure-an-outbound-proxy-for-use-in-jira-server-247857187.html).
-
-## Can self-signed certificates be used?
-
-When the Bamboo server is hosted using a self-signed certificate, the certificate must be added to the relevant Java KeyStore. The plugin
-calls its own API and this call will fail if the certificate validation chain fails.
-
-For some guidance and background regarding TLS certificates, please refer to the [following Bamboo documentation page](https://confluence.atlassian.com/bamboo/securing-bamboo-with-tomcat-using-ssl-391087422.html).
