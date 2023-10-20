@@ -12,6 +12,9 @@
         - [Generation: Kubernetes up to v1.23](/administration/clusters/clusters.md?id=token-generation-kubernetes-versions-up-to-v123)
         - [Generation: Kubernetes v1.24 onwards](/administration/clusters/clusters.md?id=token-generation-kubernetes-versions-from-v124-onwards)
         - [Token Usage](/administration/clusters/clusters.md?id=token-usage)
+- [Scope](/administration/clusters/clusters.md?id=scope)
+    - [Configuration](/administration/clusters/clusters.md?id=configuration)
+    - [Usage](/administration/clusters/clusters.md?id=usage)
 
 ## Assumptions
 
@@ -20,8 +23,6 @@ Having these assumptions makes the plugin opinionated, but reduces the complexit
 
 > As the capabilities of the plugin change over time, so will these assumptions evolve.
 > It is our intention to have as little assumptions as possible, making the plugin broadly applicable.
-
-- The Kubernetes version of the cluster is at least 1.9.0 (and at most 1.19.1).
 
 - Each (worker) node in the cluster is provisioned with at least 500MB of RAM and 0.25 vCPU. This caters for the execution of the smallest instance of a single agent Pod.
 Going lower on (multiples of this amount of) RAM could result in the agent containers crashing, and is not supported by the plugin.
@@ -121,7 +122,7 @@ A descriptive, free-form name which is used to distinguish this cluster from oth
 Each cluster connection has a *purpose*, which can be one of:
 
 - *Agents*: the cluster is used to host Bamboo agents (see [instances](/administration/instances/instances.md)).
-- *Builds*: the cluster can be used from Bamboo builds and deployments (see [cluster task](/tasks/cluster.md))
+- *Builds*: the cluster can be used from Bamboo builds and deployments (see [cluster task](/tasks/cluster.md) and [scope](/administration/clusters/clusters.md?id=scope) below).
 
 Once a cluster connection is created, its *purpose* can no longer be changed.
 
@@ -372,3 +373,43 @@ This output can now be used in the cluster configuration *Token* input field.
 
 <kbd>![cluster-auth-token](../../_media/screenshots/cluster_auth_token.png "Cluster Auth Token")</kbd>
 
+## Scope
+
+When creating a cluster of purpose *Builds*, its default scope is *global*. This implies that any (Build) Plan or
+(Deployment) Environment can access the cluster config trough the [Write Cluster Config task](/tasks/cluster.md).
+
+To avoid excessive and uncontrolled exposure of cluster resources, the scope of each cluster can be reduced
+to the Plans and Environments that are actually permitted to access the cluster.
+
+ ### Configuration
+ 
+ After defining a cluster of purpose *Builds*, click the *Global* link in the *Scope* column.
+ 
+ <kbd>![bamboo-scope-table-global](../../_media/screenshots/bamboo_scope_table_global.png "Bamboo Scope Table Global")</kbd>
+
+The cluster scope dialog appears:
+
+<kbd>![bamboo-scope-dialog-global](../../_media/screenshots/bamboo_scope_dialog_global.png "Bamboo Scope Dialog Global")</kbd>
+ 
+In order to restrict the scope, unselect the checkbox below the *Global* section first. The elements found below the Restricted section will now be enabled.
+ 
+Use the search box to filter the list of Projects and Deployments.
+
+<kbd>![bamboo-scope-dialog-search](../../_media/screenshots/bamboo_scope_dialog_search.png "Bamboo Scope Dialog Search")</kbd> 
+
+Select and add any combination of items to define the scope of the Secret Manager, given that:
+ 
+ - Selecting a Project implies granting access to all child Plans.
+ - Selecting a Deployment implies granting access to all child Environments.
+ 
+As a consequence, once a Project has been added its child Plans will no longer be returned in the search results. The same principle applies to Deployments and child Environments.
+ 
+Save changes when done. The table will now display *Restricted* in the *Scope* column.
+
+### Usage
+
+Writing the cluster configuration from a build or deployment not defined within the scope of the respective cluster will result in the following error in the build log.
+
+<kbd>![bamboo-scope-build-error](../../_media/screenshots/bamboo_scope_build_error.png "Bamboo Scope Build Error")</kbd>
+
+As a result, the build will fail.
