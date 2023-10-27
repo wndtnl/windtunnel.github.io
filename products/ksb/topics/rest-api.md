@@ -25,7 +25,7 @@
 
 ## General
 
-The *Kubernetes (Agents) for Bamboo* plugin exposes a REST API allowing programmatic management of the administrative entities.
+The *Kubernetes for Bamboo* plugin exposes a REST API allowing programmatic management of the administrative entities.
 
 > It is important to note this REST API was created for internal use by the plugin. It is not designed with external consumers in mind.
 > This interface is documented here and provided 'as-is', in the hopes it could be useful for certain administrative tasks.

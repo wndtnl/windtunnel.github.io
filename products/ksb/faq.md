@@ -9,7 +9,7 @@ For additional information, please refer to the Bamboo article at https://conflu
 
 # How to ensure secure agent connections?
 
-When using the Kubernetes (Agents) for Bamboo plugin, we advice using at least [secure token verification](https://confluence.atlassian.com/bamboo/agent-authentication-289277196.html#Agentauthentication-SecuritytokenverificationSecuritytokenverification).
+When using the Kubernetes for Bamboo plugin, we advice using at least [secure token verification](https://confluence.atlassian.com/bamboo/agent-authentication-289277196.html#Agentauthentication-SecuritytokenverificationSecuritytokenverification).
 When this feature is enabled, the plugin will automatically add the *SECURITY_TOKEN* environment variable to the instance agent container spec with the correct secure token value.
 This environment value is picked up by the default agent run script, and used to communicate with the Bamboo server. This feature should work transparently.
 
@@ -25,7 +25,7 @@ If [agent authentication](https://confluence.atlassian.com/bamboo/agent-authenti
 # What is the difference with Elastic Bamboo?
 
 The goals behind [Elastic Bamboo](https://confluence.atlassian.com/bamboo/about-elastic-bamboo-289277118.html) and the
-Kubernetes (Agents) for Bamboo plugin are very similar: making management of remote Bamboo agents easier and flexible, and where possible
+Kubernetes for Bamboo plugin are very similar: making management of remote Bamboo agents easier and flexible, and where possible
 elastic by automating their lifecycle. To this end Elastic Bamboo instruments EC2 based virtual machines in AWS,
 while this plugin instruments PVC's, Secrets and Pods in Kubernetes clusters.
 

@@ -2,7 +2,7 @@
 
 <kbd>![banner](./_media/plugin_banner.png "Banner")</kbd>
 
-The [Kubernetes (Agents) for Bamboo](https://marketplace.atlassian.com/apps/1222674/kubernetes-agents-for-bamboo) plugin includes the
+The [Kubernetes for Bamboo](https://marketplace.atlassian.com/apps/1222674/kubernetes-agents-for-bamboo) plugin includes the
 following features:
 
 - Start and stop Bamboo Agents manually, using Bamboo tasks or fully automated.
