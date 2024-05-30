@@ -67,6 +67,10 @@ Instances from this pool can optionally auto-inactivate.
 Instances from the Tasks and Automatic pool can still be manually started and stopped by the Bamboo Administrator if needed,
 but this might interfere with the actions taken by the system.
 
+> IMPORTANT - DEPRECATION WARNING
+>
+> Please have a look at the deprecation warning regarding the task pool on the [instance tasks page](tasks/instance?id=general).
+
 ### Cluster Resources
 
 Each instance represents exactly one PVC, one Pod and optionally one Secret (i.e. ImagePullSecret) in the linked cluster.

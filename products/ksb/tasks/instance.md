@@ -5,6 +5,21 @@
 
 ## General
 
+> IMPORTANT - DEPRECATION WARNING
+> 
+> With the release of [Bamboo 9.6](https://confluence.atlassian.com/bambooreleases/bamboo-9-6-release-notes-1376026732.html) Atlassian
+> has fully removed the possibility to define and run tasks on local agents. As it stands, the instance tasks of this plugin require execution
+> in the context of the server and as such can no longer be used. Using an instance task on Bamboo 9.6+ will fail the build and result in
+> the following error 'Instance tasks should not be executed on a remote agent'.
+>
+> While it would technically be possible to convert the instance tasks to allow them to run on remote agents
+> (using a communication channel back to the server), we are currently inclined to no longer support these tasks going 
+> forth and as a consequence the task instance pool. The use of these tasks is relatively convoluted and any use case is 
+> probably better handled by using the automatic pool.
+>
+> As of May 30th 2024, the plan is to keep the tasks and task pool available as-is for some time to allow for migration if needed,
+> but to completely remove them over time. If you would like to discuss, please [reach out](../common/support).
+
 The lifecycle of Instances from the *Task* pool can be controlled by dedicated *Start Instance* and *Stop Instance* Bamboo tasks.
 These tasks will control the *desired state* of the Instance, *Active* and *Inactive* respectively, and wait for a maximum duration
 till the instance *current state* matches this *desired state*.
