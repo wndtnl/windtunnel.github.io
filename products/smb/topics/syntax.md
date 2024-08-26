@@ -47,8 +47,8 @@ This part is fully optional, and most use-cases will be covered without ever nee
 When no discriminator is provided, the plugin falls back to sensible default behaviour. The accepted discriminator values are
 specific to each secret manager. The table below lists the different options.
 
-Secret manager | Discriminator values | Default behaviour | Example
---- | --- | --- | ---
+Secret manager | Discriminator values                                                                                                                                                                                                                                                                                                                                       | Default behaviour | Example
+--- |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --- | ---
 AWS Secrets Manager | When the discriminator is formatted as a GUID, the plugin assumes a [version id](https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_version). Otherwise, the discriminator is interpreted as a secret [stage label](https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_staging-label). | Fetch the secret with the *AWSCURRENT* stage label. | *106b6dfb-d4d9-4a79-bdfb-3188d73b5ac1* or *AWSPREVIOUS*
 Azure Key Vault | The discriminator is the secret version. | Fetch the *latest* secret version. | *97329aedab024ee9ba707139008c164b*
 CyberArk Conjur | The discriminator is the secret version. | Fetch the *latest* secret version. | *3*
@@ -57,3 +57,16 @@ HashiCorp Vault KVv1 | Not defined, any discriminator value is simply ignored. |
 HashiCorp Vault KVv2 | The discriminator is the secret version. | Fetch the *latest* secret version. | *3*
 Oracle Cloud Vault | The discriminator can be the secret version (integer value) or the secret stage. The stage can be one of the following values: *CURRENT*, *PENDING*, *LATEST*, *PREVIOUS* or *DEPRECATED*. | Fetch the secret in the *CURRENT* stage. | *3* or *PREVIOUS*
 Thycotic Secret Server | The discriminator is the secret field item *slug* (url-friendly field name as defined by the template). | Fetch the secret field item which is of type *password*. When multiple field items are of type *password*, an error is thrown. | *username*
+Keeper Secrets Manager | The discriminator is either the field type, the field label or a derived name. Full details can be found below. | Fetch the secret field item which is of type *password*. | *login*
+
+### Keeper Secrets Manager: Supported Discriminators
+
+The table below lists the record types and corresponding discriminator values currently supported.
+
+Record type | Discriminator values
+--- | ---
+Database | type, hostname, port, login, password
+Secure Note | securenote, note, date
+Login | login, password, url, onetimecode
+Server | hostname, port, login, password
+SSH Key | login, publickey, privatekey, password, passphrase, hostname, port

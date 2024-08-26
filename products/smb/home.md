@@ -14,6 +14,7 @@ The following managers are currently supported:
 - [HashiCorp Vault](https://www.vaultproject.io)
 - [Oracle Cloud Vault](https://www.oracle.com/security/cloud-security/key-management)
 - [Thycotic Secret Server](https://thycotic.com/products/secret-server)
+- [Keeper Secrets Manager](https://www.keepersecurity.com/secrets-manager.html)
 
 Managing your secrets centrally and outside your build infrastructure allows for better security and governance, and will aid
 with compliance.

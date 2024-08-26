@@ -11,6 +11,7 @@
     - [HashiCorp Vault](/tutorials/hcv.md)
     - [Oracle Cloud Vault](/tutorials/ocv.md)
     - [Thycotic Secret Server](/tutorials/tss.md)
+    - [Keeper Secrets Manager](/tutorials/ksm.md)
 
 - [**Topics**](/topics/)    
 
